@@ -57,6 +57,10 @@
         grid-template-rows: 50px 50px;
         font-size: 20px;
       }
+      .buttonContainer {
+        display: grid;
+        grid-template-columns: 150px 150px;
+      }
     </style>
     <div class="container">
       <div class="setting">
@@ -69,6 +73,14 @@
           <option value="false">覚えてないもの</option>
           <option value="all">すべて</option>
         </select>
+      </div>
+      <button class="button start">START</button>
+      <div class="card">
+        <div class="cardText"></div>
+      </div>
+      <div class="buttonContainer">
+        <button class="button incorrect">✕</button>
+        <button class="button correct">◯</button>
       </div>
     </div>
     <script>
@@ -1974,7 +1986,26 @@
         {"id": 1899, "word": "mortal", "meaning": "致命的な（≒ fatal）；死すべき（運命の）（⇔ immortal 不死の）", "part": 3, "learned": false},
         {"id": 1900, "word": "zealous", "meaning": "熱心な；熱狂的な", "part": 3, "learned": false}
       ];
-      const 
+      const minInput = document.querySelector("min");
+      const maxInput = document.querySelector("max");
+      const questionInput = document.querySelector("question");
+      const startButton = document.querySelector("start");
+      const incorrect = document.querySelector("incorrect");
+      const correct = document.querySelector("correct");
+      startButton.onclick = () => {
+        const min = minInput.value;
+        const max = maxInput.value;
+        const question = questionInput.value;
+        function range(min, max) {
+          return Array.from({length: max - min + 1}, (_, i) => min + i);
+        }
+        function shuffle(array) {
+          for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            
+          }
+        }
+      };
     </script>
   </body>
 </html>
