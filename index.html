@@ -8,8 +8,69 @@
   </head>
   <body>
     <style>
-      
+      bodoy {
+        margin: 0;
+      }
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+        padding: 24px 0;
+      }
+      .setting {
+        display: grid;
+        grid-template-columns: 100px 150px;
+        grid-template-rows: auto;
+        border: 1px solid black;
+      }
+      .button {
+        width: 100px;
+        height: 50px;
+        font-size: 22px;
+        font-weight: bold;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+      .start {
+        background-color: crimson;
+        color: white;
+      }
+      .correct {
+        background-color: red;
+        color: white;
+      }
+      incorrect {
+        background-color: blue;
+        color: white;
+      }
+      .card {
+        width: 500px;
+        padding: 32px;
+        background-color: #ffffff;
+        text-align: center;
+      }
+      .cardText {
+        display: grid;
+        grid-template-columns: 400px;
+        grid-template-rows: 50px 50px;
+        font-size: 20px;
+      }
     </style>
+    <div class="container">
+      <div class="setting">
+        <div>範囲(下限)</div>
+        <input class="min" type="number" min="1" max="1900">
+        <div>範囲(上限)</div>
+        <input class="max" type="number" min="1" max="1900">
+        <div>出す単語</div>
+        <select class="question">
+          <option value="false">覚えてないもの</option>
+          <option value="all">すべて</option>
+        </select>
+      </div>
+    </div>
     <script>
       const list = [
         {"id": 1, "word": "create", "meaning": "を創り出す；を引き起こす", "part": 1, "learned": false},
@@ -1913,6 +1974,7 @@
         {"id": 1899, "word": "mortal", "meaning": "致命的な（≒ fatal）；死すべき（運命の）（⇔ immortal 不死の）", "part": 3, "learned": false},
         {"id": 1900, "word": "zealous", "meaning": "熱心な；熱狂的な", "part": 3, "learned": false}
       ];
+      const 
     </script>
   </body>
 </html>
