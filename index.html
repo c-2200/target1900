@@ -2000,6 +2000,7 @@
       const minInput = document.querySelector("min");
       const maxInput = document.querySelector("max");
       const questionInput = document.querySelector("question");
+      const type = document.querySelector("type");
       const cardText = document.querySelector("cardText");
       const startButton = document.querySelector("start");
       const flipButton = document.querySelector("flip");
@@ -2021,14 +2022,24 @@
         }
         const number = shuffle(range(min, max));
         for (let i = 0; i < number.length; i++) {
-          let flip = false;
-          if (question = "all") {
-            const q = list.find(v => v.id == number[i]);
-            cardText.textContent = q.word;
-            flipButton.onclick = () => {
-              if (flip) return;
-              cardText.textContent += "\n" + q.meaning;
-            };
+          if (type == "e-j") {
+            let flip = false;
+            if (question = "all") {
+              const q = list.find(v => v.id == number[i]);
+              cardText.textContent = q.word;
+              flipButton.onclick = () => {
+                if (flip) return;
+                cardText.textContent += "\n" + q.meaning;
+              };
+              correct.onclick = () => {
+                list.find(v => v.id == q.id).learned = true;
+              };
+              incorrect.onclick = () => {
+                list.find(v => v.id == q.id).learned = false;
+              };
+            }
+          } else if (type == "j-e") {
+            
           }
         }
       };
