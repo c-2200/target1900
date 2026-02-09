@@ -2037,6 +2037,20 @@
               incorrect.onclick = () => {
                 list.find(v => v.id == q.id).learned = false;
               };
+            } else if (question == "false") {
+              const q = list.find(v => v.id == number[i]);
+              if (q.learned) continue;
+              cardText.textContent = q.word;
+              flipButton.onclick = () => {
+                if (flip) return;
+                cardText.textContent += "\n" + q.meaning;
+              };
+              correct.onclick = () => {
+                list.find(v => v.id == q.id).learned = true;
+              };
+              incorrect.onclick = () => {
+                list.find(v => v.id == q.id).learned = false;
+              };
             }
           } else if (type == "j-e") {
             
