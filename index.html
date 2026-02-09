@@ -60,6 +60,7 @@
         grid-template-columns: 400px;
         grid-template-rows: 50px 50px;
         font-size: 20px;
+        white-space: pre-line;
       }
       .buttonContainer {
         display: grid;
@@ -1999,7 +2000,9 @@
       const minInput = document.querySelector("min");
       const maxInput = document.querySelector("max");
       const questionInput = document.querySelector("question");
+      const cardText = document.querySelector("cardText");
       const startButton = document.querySelector("start");
+      const flipButton = document.querySelector("flip");
       const incorrect = document.querySelector("incorrect");
       const correct = document.querySelector("correct");
       startButton.onclick = () => {
@@ -2018,8 +2021,14 @@
         }
         const number = shuffle(range(min, max));
         for (let i = 0; i < number.length; i++) {
+          let flip = false;
           if (question = "all") {
             const q = list.find(v => v.id == number[i]);
+            cardText.textContent = q.word;
+            flipButton.onclick = () => {
+              if (flip) return;
+              cardText.textContent += "\n" + q.meaning;
+            };
           }
         }
       };
