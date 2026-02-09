@@ -41,9 +41,13 @@
         background-color: red;
         color: white;
       }
-      incorrect {
+      .incorrect {
         background-color: blue;
         color: white;
+      }
+      .flip {
+        background-color: yellow;
+        color: black;
       }
       .card {
         width: 500px;
@@ -59,7 +63,7 @@
       }
       .buttonContainer {
         display: grid;
-        grid-template-columns: 150px 150px;
+        grid-template-columns: 150px 150px 150px;
       }
     </style>
     <div class="container">
@@ -80,6 +84,7 @@
       </div>
       <div class="buttonContainer">
         <button class="button incorrect">✕</button>
+        <button class="button flip">FLIP</button>
         <button class="button correct">◯</button>
       </div>
     </div>
