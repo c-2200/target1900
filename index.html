@@ -77,6 +77,11 @@
           <option value="false">覚えてないもの</option>
           <option value="all">すべて</option>
         </select>
+        <div>出題タイプ</div>
+        <select class="type">
+          <option value="e-j">英語⇒日本語</option>
+          <option value="j-e">日本語⇒英語</option>
+        </select>
       </div>
       <button class="button start">START</button>
       <div class="card">
@@ -2007,7 +2012,14 @@
         function shuffle(array) {
           for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            
+            [array[i], array[j]] = [array[j], array[i]];
+          }
+          return array;
+        }
+        const number = shuffle(range(min, max));
+        for (let i = 0; i < number.length; i++) {
+          if (question = "all") {
+            const q = list.find(v => v.id == number[i]);
           }
         }
       };
