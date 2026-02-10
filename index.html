@@ -1997,15 +1997,15 @@
         {"id": 1899, "word": "mortal", "meaning": "致命的な（≒ fatal）；死すべき（運命の）（⇔ immortal 不死の）", "part": 3, "learned": false},
         {"id": 1900, "word": "zealous", "meaning": "熱心な；熱狂的な", "part": 3, "learned": false}
       ];
-      const minInput = document.querySelector("min");
-      const maxInput = document.querySelector("max");
-      const questionInput = document.querySelector("question");
-      const type = document.querySelector("type");
-      const cardText = document.querySelector("cardText");
-      const startButton = document.querySelector("start");
-      const flipButton = document.querySelector("flip");
-      const incorrect = document.querySelector("incorrect");
-      const correct = document.querySelector("correct");
+      const minInput = document.querySelector(".min");
+      const maxInput = document.querySelector(".max");
+      const questionInput = document.querySelector(".question");
+      const type = document.querySelector(".type");
+      const cardText = document.querySelector(".cardText");
+      const startButton = document.querySelector(".start");
+      const flipButton = document.querySelector(".flip");
+      const incorrect = document.querySelector(".incorrect");
+      const correct = document.querySelector(".correct");
       function saveList() {
         localStorage.setItem("wordList", JSON.stringify(list));
       }
