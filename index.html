@@ -2006,6 +2006,16 @@
       const flipButton = document.querySelector("flip");
       const incorrect = document.querySelector("incorrect");
       const correct = document.querySelector("correct");
+      function saveList() {
+        localStorage.setItem("wordList", JSON.stringify(list));
+      }
+      function loadList() {
+        const saved = localStorage.getItem("wordList");
+        if (saved) {
+          list = JSON.parse(saved);
+        }
+      }
+      loadList();
       startButton.onclick = () => {
         const min = minInput.value;
         const max = maxInput.value;
@@ -2033,9 +2043,11 @@
               };
               correct.onclick = () => {
                 list.find(v => v.id == q.id).learned = true;
+                saveList();
               };
               incorrect.onclick = () => {
                 list.find(v => v.id == q.id).learned = false;
+                saveList();
               };
             } else if (question == "false") {
               const q = list.find(v => v.id == number[i]);
@@ -2047,9 +2059,11 @@
               };
               correct.onclick = () => {
                 list.find(v => v.id == q.id).learned = true;
+                saveList();
               };
               incorrect.onclick = () => {
                 list.find(v => v.id == q.id).learned = false;
+                saveList();
               };
             }
           } else if (type == "j-e") {
@@ -2057,6 +2071,15 @@
           }
         }
       };
+      function saveList() {
+        localStorage.setItem("wordList", JSON.stringify(list));
+      }
+      function loadList() {
+        const saved = localStorage.getItem("wordList");
+        if (saved) {
+          list = JSON.parse(saved);
+        }
+      }
     </script>
   </body>
 </html>
