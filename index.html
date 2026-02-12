@@ -95,7 +95,7 @@
       </div>
     </div>
     <script>
-      const list = [
+      let list = [
         {"id": 1, "word": "create", "meaning": "を創り出す；を引き起こす", "part": 1, "learned": false},
         {"id": 2, "word": "increase", "meaning": "増加する（⇔ decrease ⇒ 223）；を増やす", "part": 1, "learned": false},
         {"id": 3, "word": "improve", "meaning": "を向上させる；よくなる", "part": 1, "learned": false},
@@ -2006,6 +2006,44 @@
       const flipButton = document.querySelector(".flip");
       const incorrect = document.querySelector(".incorrect");
       const correct = document.querySelector(".correct");
+      let queue = [];
+      let current = null;
+      let flipped = false;
+
+      function range(min, max) {
+        return Array.from({length: max - min + 1}, (_, i) => min + i);
+      }
+
+      function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+      }
+
+      function showCurrent() {
+        if (!current) {
+          cardText.textContent = "終了！";
+          return;
+        }
+        flipped = false;
+        cardText.textContent = typeInput.value == "e-j" ? current.word : current.meaning;
+      }
+
+      function nextQuestion() {
+        current = queue.shift() || null;
+        showCurrent();
+      }
+
+      function markCurrent(learned) {
+        if (!current) return;
+        const target = list.find(v => v.id == current.id);
+        if (!target) return;
+        target.learned = learned;
+        saveList();
+        nextQuestion();
+      }
       function saveList() {
         localStorage.setItem("wordList", JSON.stringify(list));
       }
@@ -2016,92 +2054,33 @@
         }
       }
       loadList();
+      flipButton.onclick = () => {
+        if (!current || flipped) return;
+        cardText.textContent += typeInput.value == "e-j" ? "\n" + current.meaning : "\n" + current.word;
+        flipped = true;
+      };
+
+      correct.onclick = () => {
+        markCurrent(true);
+      };
+
+      incorrect.onclick = () => {
+        markCurrent(false);
+      };
       startButton.onclick = () => {
-        const min = minInput.value;
-        const max = maxInput.value;
+        const min = Number(minInput.value);
+        const max = Number(maxInput.value);
         const question = questionInput.value;
-        function range(min, max) {
-          return Array.from({length: max - min + 1}, (_, i) => min + i);
+        if (Number.isNaN(min) || Number.isNaN(max) || min < 1 || max > 1900 || min > max) {
+          cardText.textContent = "範囲を正しく入力してください。";
+          return;
         }
-        function shuffle(array) {
-          for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-          }
-          return array;
-        }
-        const number = shuffle(range(min, max));
-        for (let i = 0; i < number.length; i++) {
-          if (type == "e-j") {
-            let flip = false;
-            if (question = "all") {
-              const q = list.find(v => v.id == number[i]);
-              cardText.textContent = q.word;
-              flipButton.onclick = () => {
-                if (flip) return;
-                cardText.textContent += "\n" + q.meaning;
-              };
-              correct.onclick = () => {
-                list.find(v => v.id == q.id).learned = true;
-                saveList();
-              };
-              incorrect.onclick = () => {
-                list.find(v => v.id == q.id).learned = false;
-                saveList();
-              };
-            } else if (question == "false") {
-              const q = list.find(v => v.id == number[i]);
-              if (q.learned) continue;
-              cardText.textContent = q.word;
-              flipButton.onclick = () => {
-                if (flip) return;
-                cardText.textContent += "\n" + q.meaning;
-              };
-              correct.onclick = () => {
-                list.find(v => v.id == q.id).learned = true;
-                saveList();
-              };
-              incorrect.onclick = () => {
-                list.find(v => v.id == q.id).learned = false;
-                saveList();
-              };
-            }
-          } else if (type == "j-e") {
-            let flip = false;
-            if (question = "all") {
-              const q = list.find(v => v.id == number[i]);
-              cardText.textContent = q.meaning;
-              flipButton.onclick = () => {
-                if (flip) return;
-                cardText.textContent += "\n" + q.word;
-              };
-              correct.onclick = () => {
-                list.find(v => v.id == q.id).learned = true;
-                saveList();
-              };
-              incorrect.onclick = () => {
-                list.find(v => v.id == q.id).learned = false;
-                saveList();
-              };
-            } else if (question == "false") {
-              const q = list.find(v => v.id == number[i]);
-              if (q.learned) continue;
-              cardText.textContent = q.meaning;
-              flipButton.onclick = () => {
-                if (flip) return;
-                cardText.textContent += "\n" + q.word;
-              };
-              correct.onclick = () => {
-                list.find(v => v.id == q.id).learned = true;
-                saveList();
-              };
-              incorrect.onclick = () => {
-                list.find(v => v.id == q.id).learned = false;
-                saveList();
-              };
-            }
-          }
-        }
+        const selected = range(min, max)
+          .map(n => list.find(v => v.id == n))
+          .filter(v => v && (question == "all" || !v.learned));
+
+        queue = shuffle(selected);
+        nextQuestion();
       };
     </script>
   </body>
